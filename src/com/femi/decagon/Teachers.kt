@@ -5,6 +5,7 @@ class Teachers (name: String, position: String, salary: Int, id: Int, var subjec
         print("You Salary has been paid")
     }
     fun teachSubject(){
+
         print("You have a class now:")
     }
 }

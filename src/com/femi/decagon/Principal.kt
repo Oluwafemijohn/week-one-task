@@ -1,15 +1,20 @@
 package com.femi.decagon
 
+import java.sql.DriverManager.println
+import java.util.*
+
 open class Principal(name: String, position: String, salary: Int,  id: Int): Staffs( name,  position,  salary,  id) {
-//    creat list for students
-    var studentName: MutableList<Students> = mutableListOf()
+//    create list for students
+    var studentList: ArrayList<Students> = arrayListOf()
 //    create list for admitted students
-    var admitedApplicant: MutableList<Students> = mutableListOf()
-    fun admitStudent(newApplicant: Applicants): String {
-//        to filterapplicant student with age
+    var admitedApplicant: ArrayList<StudentApplicants> = arrayListOf()
+
+    fun admitStudent(newApplicant: StudentApplicants): String {
+//        to filter applicant student with age
         return if (newApplicant.age >= 18) {
-//            to add admited student to the student list
-            admitedApplicant.mapTo(studentName){ Students( it.name, it.age, it.id)}
+    //            to add admitted student to the student list
+            var list = admitedApplicant.mapTo(studentList){ Students( it.name, it.age)}
+            studentList.addAll(list).toString()
 
             "${newApplicant.name} is admitted "
 
@@ -20,10 +25,28 @@ open class Principal(name: String, position: String, salary: Int,  id: Int): Sta
     }
 
 //to expel student
-    fun expelStudent(newApplicant: Students){
-
-        println("You are hereby ${newApplicant.name} expelled for this school")
+    fun expelStudent(goingStudent: Students){
+    studentList.remove(goingStudent)
+        println("You are hereby ${goingStudent.name} expelled for this school")
     }
+
+    fun addAspirant(aspirant:StudentApplicants) {
+        admitedApplicant.add(aspirant)
+    }
+    fun addStudent(student:Students) {
+        studentList.add(student)
+    }
+    fun printApplicantList() {
+
+        val studentNames = mutableListOf<String>()
+
+        for (i in studentList.indices){
+            studentNames.add(studentList[i].name)
+        }
+
+        println(studentNames.toList())
+    }
+
 
 
 
